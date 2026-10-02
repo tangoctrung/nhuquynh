@@ -37,10 +37,9 @@ function Start({
               <TypeAnimation
                 sequence={[
                   600,
-                  'Xin chào Yn Nhi, \n' +
-                  'Đây là trang web đầu tiên mà anh làm chỉ để dành riêng cho một người.\n' +
-                  'Anh mới bắt đầu làm cái này được mấy hôm thui nên có lẽ vẫn còn hơi sơ xài xíu, mong em thích nó.\n' +
-                  'Món quà mà anh muốn cho em xem đó chính là "Vòng quay ánh sáng".\n',
+                  'Xin chào mọi người, \n' +
+                  'Đây là trang web của Như Quỳnh.\n' +
+                  'Mời mọi người chiêm ngưỡng "Vòng quay ánh sáng" của Như Quỳnh nhé.\n',
                   () => {
                     setIsSound(false);
                     setStep("2")

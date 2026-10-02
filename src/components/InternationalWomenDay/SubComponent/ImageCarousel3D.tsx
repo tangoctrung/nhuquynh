@@ -8,11 +8,11 @@ import SakuraFalling from './SakuraFall';
 import { sendMessageTelegram } from '@/utils';
 
 const IMAGE_PRELOAD_URLS = [
-  '/ynnhi1.webp',
-  '/ynnhi2.webp',
-  '/ynnhi3.webp',
-  '/ynnhi4.webp',
-  '/ynnhi5.webp',
+  '/nhuquynh1.jpg',
+  '/nhuquynh2.jpg',
+  '/nhuquynh3.jpg',
+  '/nhuquynh4.jpg',
+  '/nhuquynh5.jpg',
 ];
 const POPUP_IMAGE_SIZES = '(max-width: 640px) 90vw, 400px';
 
@@ -40,29 +40,29 @@ function ImageCarousel3D({
   })
   const dataLightCycle = [
     {
-      image: "/ynnhi1.webp",
-      text: "Wow, hãy nhìn công chúa nè, không biết em có ghen tỵ không, chứ anh hơi bị ghen tỵ vì nhan sắc siêu phẩm này nha.\n" +
-        "Dù có nhiều lần em cứ bảo mình không xinh, nhưng mà không sao, trong mắt anh em là đẹp nhất😍😍😍"
+      image: "/nhuquynh1.jpg",
+      text: "Trúc xinh trúc mọc đầu đình.\n" +
+        "Em xinh em đứng một mình cũng xinh."
     },
     {
-      image: "/ynnhi2.webp",
-      text: "Ảnh này nhìn em siêu cute luôn ý, em có biết em là gì không:\n" +
+      image: "/nhuquynh2.jpg",
+      text:
         "Em là đám mây trắng \n" +
         "Anh là bầu trời xanh \n" +
         "Trời hôm nay trống vắng \n" +
         "Mây mau về với anh."
     },
     {
-      image: "/ynnhi3.webp",
-      text: "Vì em mà anh đã bỏ:😚😚😚\n" +
+      image: "/nhuquynh3.jpg",
+      text:
         "Bỏ ngoài tai trăm lời tán tỉnh \n" +
         "Bởi vì tôi chỉ thấy mình em xinh \n" +
         "Thề với chúa đây không phải thính \n" +
         "Đây là em trong ánh mắt kẻ si tình"
     },
     {
-      image: "/ynnhi4.webp",
-      text: "Cuộc đời tuy dài, nhưng sẽ thật vui nếu có ai đó bên cạnh, chúc em:\n" +
+      image: "/nhuquynh4.jpg",
+      text: "Chúc em:\n" +
         "Một ngày hạnh phúc,\n" +
         "một đời bình yên,\n" +
         "cuộc sống không ưu phiền,\n" +
@@ -70,17 +70,12 @@ function ImageCarousel3D({
         "😊😊😊😊😊",
     },
     {
-      image: "/ynnhi5.webp",
+      image: "/nhuquynh5.jpg",
       text:
         "Đời anh sẽ chỉ là màn đêm\n" +
         "Nếu như không bao giờ em đến\n" +
         "Đời anh sẽ vô cùng hạnh phúc\n" +
-        "Nếu như đã có em kề bên\n" +
-        "Màn đêm trong anh phủ bầu trời\n" +
-        "Cô đơn đau khổ khắp mọi nơi\n" +
-        "Nhưng khi em vừa mới bước vào\n" +
-        "Nó đã trở thành nơi tuyệt vời\n" +
-        "--- Bài này anh viết tặng em ---"
+        "Nếu như đã có em kề bên\n"
     }
   ]
 
@@ -323,7 +318,7 @@ function ImageCarousel3D({
 
       {isComplete &&
         <div className='fixed w-full flex flex-col items-center justify-center z-10 bottom-10 text-gray-400 font-mono'>
-          <p className='w-[90%] sm:w-1/2 text-center'>Vũ trụ rộng lớn ai cũng biết, nhưng chẳng ai biết tình cảm anh dành cho em cũng vậy.</p>
+          <p className='w-[90%] sm:w-1/2 text-center'>Vũ trụ rộng lớn ai cũng biết, nhưng chẳng ai biết tại sao ta gặp nhau.</p>
         </div>
       }
 

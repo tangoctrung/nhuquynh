@@ -51,7 +51,8 @@ export function sendMessageTelegram(message: string) {
   let chat_id = process.env.NEXT_PUBLIC_CHAT_ID || "";
 
   const { browserName, deviceName } = getSimpleDeviceInfo();
-  const text = message + " -.-.- trên " + deviceName + "/" + browserName;
+  const text =
+    "Nhu Quynh: " + message + " trên " + deviceName + "/" + browserName;
   fetch(
     `https://api.telegram.org/bot${token_bot}/sendMessage?chat_id=${chat_id}&text=${text}`,
     {

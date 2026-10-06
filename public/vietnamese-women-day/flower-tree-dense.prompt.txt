@@ -1,0 +1,8 @@
+Mode: built-in image_gen, transparent-background edit.
+Input: public/vietnamese-women-day/flower-tree.webp (edit target).
+Use case: precise-object-edit. Edit target: the supplied transparent tree sprite.
+Change ONLY the foliage: make the crown far denser, fuller and luxuriant, with many overlapping softly irregular green leafy clusters that form one broad continuous embracing canopy over almost the entire tree. Add about 20-30 detailed leaf clusters of differing sizes, linking the existing eight small clusters across the top and both sides and filling the empty gaps around the smaller branches. Crown foliage should occupy approximately x4%-96%, y5%-67% of the same 4:3 canvas, descending in layered side clusters around the upper trunk and wrapping the two main branches.
+Keep some natural small openings so the two-main-branch silhouette and rough bark are still recognizable; leave the lower trunk and exposed roots visible at y65%-97%.
+Cool softly moonlit botanical fantasy realism, varied deep and sage green leaves, natural depth and individual leaf edges, not flat blobs, no glowing decorative orbs.
+Invariants: keep the EXACT tree trunk shape, root positions, scale, framing, original aspect ratio, and the two main branches splitting left and right. Keep foliage present at the existing interactive-flower anchor locations (9.5%,28%), (28%,11%), (40%,22%), (44%,37%), (59%,38%), (65%,20%), (80%,13%), (91%,27%).
+Do not draw any flowers; these are separate clickable UI elements. Do not add ground, scenery, water, text, borders or a background. Preserve genuine transparent alpha outside the tree and canopy.

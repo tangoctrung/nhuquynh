@@ -1,0 +1,299 @@
+.tree {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.treeImage {
+  object-fit: contain;
+  filter: brightness(0.76) saturate(0.6) contrast(1.08) drop-shadow(4px 8px 10px #00000066);
+}
+
+.tree::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(145deg, #01060a05 12%, #01060a38 38%, #01060a80 72%, #000000b3);
+  mask-image: url('/vietnamese-women-day/flower-tree-dense.webp');
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.flower {
+  position: absolute;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  translate: -50% -50%;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flower:focus-visible {
+  outline: 1px solid var(--flower-color);
+  outline-offset: 3px;
+}
+
+.bloom {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 48px;
+  height: 48px;
+  translate: -50% -50%;
+  transform: rotate(var(--tilt));
+  transform-origin: 50% 85%;
+  filter: drop-shadow(0 0 6px var(--flower-color)) brightness(1.08);
+  transition: scale 250ms ease;
+  animation: bloomGlow 3.8s ease-in-out var(--phase) infinite,
+    flowerSway var(--wind-duration) ease-in-out var(--wind-phase) infinite;
+}
+
+.flowerImage {
+  object-fit: contain;
+  filter: var(--flower-tone);
+}
+
+.flower:disabled {
+  cursor: default;
+}
+
+.flower[data-locked='true'] .bloom {
+  opacity: 0.65;
+  filter: brightness(0.85);
+  animation: flowerSway var(--wind-duration) ease-in-out var(--wind-phase) infinite;
+}
+
+.flower[data-locked='true'] .twinkles { display: none; }
+
+.flower[data-opened='true'] .bloom {
+  opacity: 0.48;
+  filter: saturate(0.35) brightness(0.7);
+  animation: flowerSway var(--wind-duration) ease-in-out var(--wind-phase) infinite;
+}
+
+.flower[data-opened='true'] .twinkles { display: none; }
+
+.flower[data-opening='true'] .bloom {
+  animation: flowerOpening 350ms ease-out both;
+}
+
+@media (hover: hover) {
+  .flower:not(:disabled):hover .bloom { scale: 1.12; }
+}
+
+.twinkles, .burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.twinkles i {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff9e8;
+  filter: drop-shadow(0 0 3px #fff1bf);
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+  animation: twinkle 3.2s ease-in-out var(--sparkle-phase) infinite;
+}
+
+.twinkles i:nth-child(1) { left: 7%; top: 22%; }
+.twinkles i:nth-child(2) { right: 6%; top: 12%; }
+.twinkles i:nth-child(3) { right: 14%; bottom: 11%; }
+
+.burst i {
+  position: absolute;
+  left: calc(50% - 2px);
+  top: calc(50% - 2px);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--flower-color);
+  opacity: 0;
+  animation: flowerBurst 850ms ease-out both;
+}
+
+.tree[data-active='false'] .bloom,
+.tree[data-active='false'] .twinkles i,
+.tree[data-active='false'] .burst i {
+  animation-play-state: paused;
+}
+
+@keyframes bloomGlow {
+  0%, 100% { opacity: 0.92; filter: drop-shadow(0 0 5px var(--flower-color)) brightness(1.05); }
+  50% { opacity: 1; filter: drop-shadow(0 0 8px var(--flower-color)) brightness(1.17); }
+}
+
+@keyframes flowerSway {
+  0%, 100% { transform: translateX(-1px) rotate(calc(var(--tilt) - 4deg)); }
+  50% { transform: translateX(1px) rotate(calc(var(--tilt) + 4deg)); }
+}
+
+@keyframes twinkle {
+  0%, 70%, 100% { opacity: 0; transform: scale(0.4) rotate(-12deg); }
+  35% { opacity: 1; transform: scale(1.35) rotate(12deg); }
+}
+
+@keyframes flowerBurst {
+  0% { opacity: 0.9; transform: rotate(var(--angle)) translateX(10px); }
+  100% { opacity: 0; transform: rotate(var(--angle)) translateX(42px); }
+}
+
+@keyframes flowerOpening {
+  0% { opacity: 1; transform: rotate(var(--tilt)) scale(1); filter: drop-shadow(0 0 7px var(--flower-color)); }
+  60% { opacity: 1; transform: rotate(0deg) scale(1.3); filter: drop-shadow(0 0 12px var(--flower-color)); }
+  100% { opacity: 0.48; transform: rotate(12deg) scale(0.94); }
+}
+
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  border: 0;
+  overflow: hidden;
+  background: transparent;
+  color-scheme: light;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+}
+
+.dialog[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog::backdrop {
+  background: #030a12b3;
+  backdrop-filter: blur(3px);
+}
+
+.messageCard {
+  position: relative;
+  width: min(420px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 30px 32px 36px;
+  border: 1px solid #d4e2dc;
+  border-radius: 8px;
+  background: #f7faf8;
+  color: #2c4941;
+  text-align: center;
+  box-shadow: 0 18px 60px #00000066;
+  pointer-events: auto;
+}
+
+.messageFlower {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 18px;
+}
+
+.messageCard h2 {
+  margin: 0 0 14px;
+  font-family: 'OpeningLetterScript', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.messageCard p {
+  margin: 0;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #52695f;
+  overflow-wrap: anywhere;
+}
+
+.specialMessage {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #dfd7bb;
+}
+
+.specialMessage h3 {
+  margin: 0 0 10px;
+  color: #806121;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #49645b;
+  cursor: pointer;
+}
+
+.closeButton:hover { background: #e4ece8; }
+.closeButton:focus-visible { outline: 2px solid #779b8e; outline-offset: -3px; }
+
+.flyingBloom {
+  position: fixed;
+  left: calc(50% - 48px);
+  top: calc(50% - 48px);
+  width: 96px;
+  height: 96px;
+  filter: drop-shadow(0 0 8px #ffe8ee80);
+  pointer-events: none;
+}
+
+@media (max-width: 600px), (max-height: 480px) {
+  .bloom { width: 39px; height: 39px; }
+}
+
+@media (max-width: 600px) {
+  .messageCard { padding: 28px 24px 30px; }
+  .messageCard h2 { font-size: 28px; }
+}
+
+@media (max-height: 480px) {
+  .messageCard { padding: 18px 52px 22px; }
+  .messageFlower { width: 60px; height: 60px; margin-bottom: 10px; }
+  .messageCard h2 { font-size: 26px; margin-bottom: 8px; }
+  .messageCard p { font-size: 15px; line-height: 1.6; }
+}
+
+@media (max-height: 380px) {
+  .messageCard[data-special='true'] { padding: 14px 36px 16px; }
+  .messageCard[data-special='true'] .messageFlower { width: 42px; height: 42px; margin-bottom: 6px; }
+  .messageCard[data-special='true'] h2 { font-size: 24px; margin-bottom: 6px; }
+  .messageCard[data-special='true'] p { font-size: 14px; line-height: 1.45; }
+  .specialMessage { margin-top: 12px; padding-top: 10px; }
+  .specialMessage h3 { font-size: 16px; margin-bottom: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bloom, .flower[data-locked='true'] .bloom, .flower[data-opened='true'] .bloom, .flower[data-opening='true'] .bloom, .twinkles i, .burst i { animation: none; transition: none; }
+  .twinkles i { opacity: 0.65; }
+}

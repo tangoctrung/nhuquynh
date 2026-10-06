@@ -1,0 +1,5 @@
+Mode: built-in image_gen, transparent-background generation.
+Use case: photorealistic-natural. Asset type: a single isolated flower cutout sprite for clickable glowing flowers on a detailed moonlit fantasy tree.
+Subject: one fully blooming pale blush pink camellia flower, viewed nearly straight-on from slightly above, with a natural round silhouette, many layered gently irregular cupped petals, delicate petal veins, soft folds and realistic fine translucent edges, a small warm ivory and gold stamen cluster at the center.
+Beautiful realistic botanical detail, no flat cartoon shapes, no icon, no 3D plastic. Muted blush-ivory with a slightly deeper pink at petal bases; low-key diffuse cool moonlight from upper left and gentle shadows between petal layers, subtle natural highlights, NOT emissive and no external glow baked into the image (glow will be added separately in CSS).
+Composition: square transparent canvas, single flower centered, bloom fills 90% of frame with minimal safe margin, entire flower fully visible, no stem, no leaves, no other flowers, no landscape, no text, no watermark, genuine transparent alpha background.

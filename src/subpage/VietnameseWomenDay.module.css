@@ -21,12 +21,17 @@
 
 .scroller[data-theme='flowers'],
 .screen[data-theme='flowers'] {
-  --page-background: #174f96;
+  --page-background: #090f1a;
   --page-gradient: none;
   --page-foreground: #edf5ff;
-  --scroll-thumb: #9ccaff;
-  --scroll-hover: #d1e5ff;
-  --scroll-track: #103568;
+  --scroll-thumb: #9ac6be;
+  --scroll-hover: #c5e8df;
+  --scroll-track: #162425;
+}
+
+.screen[data-theme='flowers'] {
+  padding: 0;
+  overflow: hidden;
 }
 
 .scroller[data-theme='wish'],

@@ -3,20 +3,77 @@ import { DAYS } from "@/types";
 export interface SimpleDeviceInfo {
   deviceName: string; // Tên thiết bị / Hệ điều hành (ví dụ: iPhone, Android, Mac, Windows)
   browserName: string; // Tên trình duyệt (ví dụ: Chrome, Safari, Firefox, Edge)
+  browserVersion: string;
+  ip: string;
+  language: string;
+  timezone: string;
+  platform: string;
+  screenSize: string;
+  viewportSize: string;
+  pixelRatio: number;
+  cpuCores: number | null;
+  deviceMemory: number | null;
+  touchPoints: number;
+  cookiesEnabled: boolean;
+  userAgent: string;
 }
 
-const getSimpleDeviceInfo = (): SimpleDeviceInfo => {
+const getIp = async (): Promise<string> => {
+  const endpoints = [
+    "https://api64.ipify.org?format=json",
+    "https://api.ipify.org?format=json",
+  ];
+
+  for (const endpoint of endpoints) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+
+    try {
+      const response = await fetch(endpoint, {
+        cache: "no-store",
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        console.warn(`IP lookup failed: ${endpoint} (HTTP ${response.status})`);
+        continue;
+      }
+
+      const data: { ip?: unknown } | null = await response.json();
+      if (typeof data?.ip === "string" && data.ip.trim()) {
+        return data.ip.trim();
+      }
+
+      console.warn(`IP lookup returned no IP: ${endpoint}`);
+    } catch (error) {
+      console.warn(`IP lookup failed: ${endpoint}`, error);
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  return "Unknown IP";
+};
+
+const getSimpleDeviceInfo = async (): Promise<SimpleDeviceInfo> => {
   const ua = navigator.userAgent;
+  const browserPatterns: Record<string, RegExp> = {
+    Firefox: /(?:Firefox|FxiOS)\/([\d.]+)/,
+    Edge: /(?:Edg|EdgA|EdgiOS)\/([\d.]+)/,
+    Opera: /(?:OPR|Opera|OPiOS)\/([\d.]+)/,
+    Chrome: /(?:Chrome|CriOS)\/([\d.]+)/,
+    Safari: /Version\/([\d.]+)/,
+  };
 
   // 1. Nhận biết Trình duyệt (Kiểm tra theo thứ tự ưu tiên)
   let browserName = "Unknown Browser";
-  if (ua.includes("Firefox/") && !ua.includes("Seamonkey/")) {
+  if (browserPatterns.Firefox.test(ua) && !ua.includes("Seamonkey/")) {
     browserName = "Firefox";
-  } else if (ua.includes("Edg/")) {
+  } else if (browserPatterns.Edge.test(ua)) {
     browserName = "Edge"; // Edge Chromium
-  } else if (ua.includes("OPR/") || ua.includes("Opera/")) {
+  } else if (browserPatterns.Opera.test(ua)) {
     browserName = "Opera";
-  } else if (ua.includes("Chrome/") && !ua.includes("Chromium/")) {
+  } else if (browserPatterns.Chrome.test(ua) && !ua.includes("Chromium/")) {
     browserName = "Chrome";
   } else if (ua.includes("Safari/") && !ua.includes("Chrome/")) {
     browserName = "Safari";
@@ -43,28 +100,69 @@ const getSimpleDeviceInfo = (): SimpleDeviceInfo => {
     deviceName = "Linux PC";
   }
 
-  return { deviceName, browserName };
+  const browserVersion =
+    browserPatterns[browserName]?.exec(ua)?.[1] || "Unknown Version";
+  const { deviceMemory } = navigator as Navigator & { deviceMemory?: number };
+  const deviceInfo = {
+    deviceName,
+    browserName,
+    browserVersion,
+    language: navigator.languages?.join(", ") || navigator.language || "Unknown",
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown",
+    platform: navigator.platform || "Unknown",
+    screenSize: `${window.screen.width}x${window.screen.height}`,
+    viewportSize: `${window.innerWidth}x${window.innerHeight}`,
+    pixelRatio: window.devicePixelRatio || 1,
+    cpuCores: navigator.hardwareConcurrency || null,
+    deviceMemory: deviceMemory ?? null,
+    touchPoints: navigator.maxTouchPoints || 0,
+    cookiesEnabled: navigator.cookieEnabled,
+    userAgent: ua,
+  };
+
+  return { ...deviceInfo, ip: await getIp() };
 };
 
-export function sendMessageTelegram(message: string) {
+export async function sendMessageTelegram(message: string) {
   let token_bot = process.env.NEXT_PUBLIC_BOT_TELEGRAM_TOKEN || "";
   let chat_id = process.env.NEXT_PUBLIC_CHAT_ID || "";
 
-  const { browserName, deviceName } = getSimpleDeviceInfo();
-  const text =
-    "Nhu Quynh: " + message + " trên " + deviceName + "/" + browserName;
-  fetch(
-    `https://api.telegram.org/bot${token_bot}/sendMessage?chat_id=${chat_id}&text=${text}`,
-    {
-      method: "POST",
-    },
-  )
-    .then((res) => {
-      console.log({ res });
-    })
-    .catch((err) => {
-      console.log(err);
+  try {
+    const info = await getSimpleDeviceInfo();
+    const text = [
+      `Nhu Quynh: ${message} trên ${info.deviceName}/${info.browserName}`,
+      `IP: ${info.ip}`,
+      `Trình duyệt: ${info.browserName} ${info.browserVersion}`,
+      `Nền tảng: ${info.platform}`,
+      `Ngôn ngữ: ${info.language}`,
+      `Múi giờ: ${info.timezone}`,
+      `Màn hình: ${info.screenSize}`,
+      `Viewport: ${info.viewportSize}`,
+      `Tỉ lệ pixel: ${info.pixelRatio}`,
+      `CPU (luồng): ${info.cpuCores ?? "Unknown"}`,
+      `RAM (ước lượng): ${info.deviceMemory == null ? "Unknown" : `${info.deviceMemory} GB`}`,
+      `Điểm chạm tối đa: ${info.touchPoints}`,
+      `Cookie: ${info.cookiesEnabled ? "Bật" : "Tắt"}`,
+      `User-Agent: ${info.userAgent}`,
+    ].join("\n");
+
+    const params = new URLSearchParams({
+      chat_id,
+      text,
     });
+
+    const res = await fetch(
+      `https://api.telegram.org/bot${token_bot}/sendMessage`,
+      {
+        method: "POST",
+        body: params,
+      },
+    );
+
+    console.log({ res });
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export function returnTypeDays(day: number, month: number): DAYS {

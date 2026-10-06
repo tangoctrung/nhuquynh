@@ -2,11 +2,6 @@
 import { DAYS } from '@/types'
 import { returnTypeDays } from '@/utils'
 import React, { useEffect, useState } from 'react'
-// import LunarNewYearDay from './ LunarNewYearDay'
-// import VietnameseWomenDay from './VietnameseWomenDay'
-// import Birthday from './Birthday'
-// import NormalDay from './NormalDay'
-// import ValentineDay from './ ValentineDay'
 import InternationalWomenDay from './InternationalWomenDay'
 
 function Subpage() {
@@ -28,7 +23,6 @@ function Subpage() {
 
   return (
     <div>
-      {/* <NormalDay /> */}
       <InternationalWomenDay />
       {/* {typeDay === "1/1" && <LunarNewYearDay />}
       {(typeDay === "14/2") && <ValentineDay />}

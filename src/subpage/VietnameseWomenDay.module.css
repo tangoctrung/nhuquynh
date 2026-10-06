@@ -1,0 +1,98 @@
+.scroller[data-theme='letter'],
+.screen[data-theme='letter'] {
+  --page-background: #8c695d;
+  --page-gradient: none;
+  --page-foreground: #fff5d6;
+  --scroll-thumb: #ffd174;
+  --scroll-hover: #ffe5a4;
+  --scroll-track: #6d380c;
+}
+
+.screen[data-theme='letter'] {
+  background-image: linear-gradient(to bottom, #232c3d99, #232c3d66 58%, #24362b33 78%, #24362b1a), url('/vietnamese-women-day/garden-sky.webp');
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: max(64px, calc(env(safe-area-inset-top, 0px) + 20px));
+  padding-right: max(16px, calc(env(safe-area-inset-right, 0px) + 12px));
+  padding-bottom: max(24px, calc(env(safe-area-inset-bottom, 0px) + 8px));
+  padding-left: max(16px, calc(env(safe-area-inset-left, 0px) + 12px));
+}
+
+.scroller[data-theme='flowers'],
+.screen[data-theme='flowers'] {
+  --page-background: #174f96;
+  --page-gradient: none;
+  --page-foreground: #edf5ff;
+  --scroll-thumb: #9ccaff;
+  --scroll-hover: #d1e5ff;
+  --scroll-track: #103568;
+}
+
+.scroller[data-theme='wish'],
+.screen[data-theme='wish'] {
+  --page-background: #1d5344;
+  --page-gradient: linear-gradient(115deg, #175a3b, #22584f 45%, #653570);
+  --page-foreground: #f4f0ff;
+  --scroll-thumb: #c8ace7;
+  --scroll-hover: #e1cdf7;
+  --scroll-track: #3c2847;
+}
+
+.scroller,
+.screen {
+  background-color: var(--page-background);
+  background-image: var(--page-gradient, none);
+  color: var(--page-foreground);
+  color-scheme: dark;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+
+.scroller {
+  transition: background-color 300ms ease;
+}
+
+@supports selector(::-webkit-scrollbar) {
+  .scroller,
+  .screen {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+
+  .scroller::-webkit-scrollbar,
+  .screen::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scroller::-webkit-scrollbar-track,
+  .screen::-webkit-scrollbar-track {
+    background-color: var(--scroll-track);
+  }
+
+  .scroller::-webkit-scrollbar-thumb,
+  .screen::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-thumb);
+    border: 2px solid var(--scroll-track);
+    border-radius: 999px;
+    transition: background-color 300ms ease;
+  }
+
+  .scroller::-webkit-scrollbar-thumb:hover,
+  .screen::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scroll-hover);
+  }
+
+  .scroller::-webkit-scrollbar-button,
+  .screen::-webkit-scrollbar-button {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroller,
+  .scroller::-webkit-scrollbar-thumb,
+  .screen::-webkit-scrollbar-thumb {
+    transition: none;
+  }
+}

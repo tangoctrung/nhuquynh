@@ -1,5 +1,6 @@
 import LayoutMain from "@/components/layout";
 import Subpage from "@/subpage";
+import VietnameseWomenDay from "@/subpage/VietnameseWomenDay";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <LayoutMain>
-      <Subpage />
+      <VietnameseWomenDay />
     </LayoutMain>
   );
 }

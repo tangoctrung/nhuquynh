@@ -1,4 +1,4 @@
-'use client'
+'client'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import React, { useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'

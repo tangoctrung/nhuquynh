@@ -1,0 +1,14 @@
+Firework audio source
+
+Title: 25 CC0 bang / firework SFX
+Author: rubberduck
+Source: https://opengameart.org/node/92774
+Download: https://opengameart.org/sites/default/files/25-CC0-bang-sfx.zip
+Original file: fw_03.ogg
+License: Creative Commons CC0 1.0 Universal
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+
+Local derivative: firework-burst.wav
+Processing: mono PCM WAV, 22050 Hz, 16 bit, 1.25 seconds; high-pass
+120 Hz, low-pass 6500 Hz; peak normalized to 0.7; 3 ms fade-in and
+120 ms fade-out. The source recording is retained only outside the repo.

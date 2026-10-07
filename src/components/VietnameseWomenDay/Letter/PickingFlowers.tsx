@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './PickingFlowers.module.css'
 import FlowerTree, { canopyLeafAnchors } from './FlowerTree'
 import dialogIcons from './flowerDialogIcons.json'
+import usePickingFlowersSounds from './usePickingFlowersSounds'
 
 function PickingFlowers() {
   const sceneRef = useRef<HTMLDivElement>(null)
@@ -19,6 +20,7 @@ function PickingFlowers() {
   const [isActive, setIsActive] = useState(false)
   const [isHelpOpen, setIsHelpOpen] = useState(false)
   const closeHelp = useCallback(() => setIsHelpOpen(false), [])
+  const { soundEnabled, toggleSound, playLeafWater, playWater, playFlower } = usePickingFlowersSounds(isActive)
   const reduceMotion = useReducedMotion()
 
   useEffect(() => {
@@ -102,6 +104,7 @@ function PickingFlowers() {
       for (const leaf of leaves) {
         if (!leaf.landed && seconds - leaf.born >= leaf.duration) {
           leaf.landed = true
+          playLeafWater()
           ripples.push({ x: leaf.x, y: leaf.y, born: leaf.born + leaf.duration, kind: 'leaf' })
           ripples = ripples.slice(-8)
         }
@@ -345,6 +348,7 @@ function PickingFlowers() {
       if (x < 0 || x > width || y < height * 2 / 3 || y > height) return
       ripples.push({ x: x / width, y: y / height, born: elapsed / 1000, kind: 'click' })
       ripples = ripples.slice(-8)
+      playWater()
       if (reduceMotion) {
         paint(0)
         clearTimeout(feedbackTimer)
@@ -455,13 +459,16 @@ function PickingFlowers() {
       water.removeEventListener('click', disturbWater)
       clearTimeout(feedbackTimer)
     }
-  }, [reduceMotion])
+  }, [reduceMotion, playLeafWater, playWater])
 
   return (
     <div ref={sceneRef} className={styles.space} data-active={isActive} role='group' aria-label='Hòn đảo giữa mặt nước với cây hai nhánh và hoa phát sáng, dưới bầu trời đêm với dải ngân hà, sao lấp lánh, hành tinh chuyển động và sao chổi'>
       <canvas ref={canvasRef} className={styles.stars} aria-hidden='true' />
       <button ref={helpButtonRef} type='button' className={styles.helpButton} aria-label='Hướng dẫn' title='Hướng dẫn' aria-haspopup='dialog' aria-expanded={isHelpOpen} disabled={!isActive} onClick={() => setIsHelpOpen(true)}>
         <Icon icon={{ ...dialogIcons.icons['help-circle-outline'], width: dialogIcons.width, height: dialogIcons.height }} width={25} aria-hidden='true' />
+      </button>
+      <button type='button' className={`${styles.helpButton} ${styles.soundButton}`} aria-label={soundEnabled ? 'Tắt âm thanh' : 'Bật âm thanh'} title={soundEnabled ? 'Tắt âm thanh' : 'Bật âm thanh'} aria-pressed={soundEnabled} disabled={!isActive} onClick={toggleSound}>
+        <Icon icon={{ ...dialogIcons.icons[soundEnabled ? 'volume-high' : 'volume-off'], width: dialogIcons.width, height: dialogIcons.height }} width={24} aria-hidden='true' />
       </button>
       <div className={styles.reflection} aria-hidden='true'>
         <Image src='/vietnamese-women-day/floating-island.webp' alt='' width={1536} height={1024} sizes='(max-width: 600px) 86vw, (max-height: 480px) 110vh, 720px' className={styles.reflectionImage} />
@@ -471,7 +478,7 @@ function PickingFlowers() {
       </div>
       <button ref={waterRef} type='button' className={styles.waterSurface} aria-label='Tạo gợn sóng trên mặt nước' />
       <div ref={treeRef} className={styles.treePosition}>
-        <FlowerTree isActive={isActive} isHelpOpen={isHelpOpen} onHelpClose={closeHelp} helpButtonRef={helpButtonRef} />
+        <FlowerTree isActive={isActive} isHelpOpen={isHelpOpen} onHelpClose={closeHelp} helpButtonRef={helpButtonRef} onFlowerOpen={playFlower} />
       </div>
       <canvas ref={leafCanvasRef} className={`${styles.stars} ${styles.fallingLeaves}`} aria-hidden='true' />
     </div>

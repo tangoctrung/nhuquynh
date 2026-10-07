@@ -1,0 +1,171 @@
+.scenery {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.sky {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 66.6667%;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent 28%, #000 46%);
+}
+
+.backgroundArtwork { position: absolute; inset: 0; }
+
+.backgroundImage {
+  /* Both compositions have the same horizon height; fit the whole scene without cropping the tree or sun. */
+  object-fit: fill;
+}
+
+.cloud {
+  position: absolute;
+  left: calc(-1 * var(--cloud-width));
+  width: var(--cloud-width);
+  aspect-ratio: 3 / 1;
+  animation: cloudDrift var(--duration) linear var(--phase) infinite;
+}
+
+.cloud img { object-fit: contain; }
+
+.sunlight {
+  position: absolute;
+  left: 81.8%;
+  top: 22.8%;
+  width: 0;
+  height: 0;
+}
+
+.sunlight i {
+  position: absolute;
+  top: 0;
+  left: calc(var(--ray-width) / -2);
+  width: var(--ray-width);
+  height: 140vmax;
+  background: linear-gradient(180deg, #fff2b966, #fff1c526 38%, #fff5d100 85%);
+  clip-path: polygon(49% 0, 51% 0, 100% 100%, 0 100%);
+  transform: rotate(var(--angle));
+  transform-origin: 50% 0;
+  filter: blur(5px);
+  opacity: 0.22;
+  animation: sunlightBreathe 7s ease-in-out var(--phase) infinite;
+}
+
+.treeBlossoms { position: absolute; inset: 0; }
+
+.blossomFall {
+  --fall-distance: var(--wide-distance);
+  position: absolute;
+  left: var(--origin-x);
+  top: var(--origin-y);
+  width: 17px;
+  height: 17px;
+  opacity: 0;
+  animation: blossomFall var(--duration) linear var(--phase) infinite;
+}
+
+.blossom {
+  position: absolute;
+  inset: 0;
+  animation: blossomTwirl 4.8s ease-in-out var(--phase) infinite;
+}
+
+.blossom i {
+  position: absolute;
+  left: 30%;
+  bottom: 50%;
+  width: 40%;
+  height: 58%;
+  border-radius: 60% 65% 35% 35%;
+  background: var(--petal-color);
+  box-shadow: inset 0 -2px 2px #d2819726;
+  transform-origin: 50% 100%;
+}
+
+.blossom b {
+  position: absolute;
+  left: 38%;
+  top: 38%;
+  width: 24%;
+  height: 24%;
+  border-radius: 50%;
+  background: #e5c466;
+}
+
+.flowerField {
+  position: absolute;
+  inset: 66.6667% 0 0;
+  overflow: hidden;
+}
+
+.flower {
+  position: absolute;
+  height: min(var(--plant-height), 24dvh);
+  aspect-ratio: 2 / 3;
+  translate: -50% 0;
+  transform-origin: 50% 96%;
+  animation: flowerSway var(--wind-duration) ease-in-out var(--wind-phase) infinite;
+}
+
+.plantImage { object-fit: contain; filter: saturate(0.82) sepia(0.1) brightness(1.08); }
+
+.scenery[data-moving='false'] *,
+.scenery[data-moving='false'] *::before,
+.scenery[data-moving='false'] *::after { animation-play-state: paused; }
+
+@keyframes cloudDrift {
+  to { transform: translateX(calc(100vw + var(--cloud-width))); }
+}
+
+@keyframes sunlightBreathe {
+  0%, 100% { opacity: 0.16; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes blossomFall {
+  0% { opacity: 0; transform: translate3d(0, 0, 0); }
+  6% { opacity: 0.9; }
+  30% { transform: translate3d(calc(var(--drift) * 0.42), calc(var(--fall-distance) * 0.3), 0); }
+  55% { transform: translate3d(calc(var(--drift) * 0.28), calc(var(--fall-distance) * 0.55), 0); }
+  80% { opacity: 0.8; transform: translate3d(var(--drift), calc(var(--fall-distance) * 0.8), 0); }
+  96%, 100% { opacity: 0; transform: translate3d(calc(var(--drift) * 0.85), var(--fall-distance), 0); }
+}
+
+@keyframes blossomTwirl {
+  0%, 100% { transform: rotate(-15deg) rotateY(0deg); }
+  50% { transform: rotate(115deg) rotateY(55deg); }
+}
+
+@keyframes flowerSway {
+  0%, 100% { transform: rotate(calc(var(--lean) - 3deg)); }
+  50% { transform: rotate(calc(var(--lean) + 3deg)); }
+}
+
+@media (max-width: 600px) {
+  .cloud { width: calc(var(--cloud-width) * 0.7); }
+  .blossomFall { width: 13px; height: 13px; }
+  .flower:nth-child(3n) { display: none; }
+}
+
+@media (max-aspect-ratio: 1/1) {
+  .sky { mask-image: linear-gradient(90deg, transparent 38%, #000 58%); }
+  .sunlight { left: 79.2%; top: 9.2%; }
+  .blossomFall {
+    --fall-distance: var(--portrait-distance);
+    left: var(--portrait-x);
+    top: var(--portrait-y);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud { animation: none; left: 12%; }
+  .cloud:nth-child(2) { left: 63%; }
+  .cloud:nth-child(3) { left: 27%; }
+  .cloud:nth-child(4) { left: 76%; }
+  .cloud:nth-child(5) { left: 52%; }
+  .sunlight i, .flower, .blossom { animation: none; }
+  .blossomFall { animation: none; opacity: 0; }
+}

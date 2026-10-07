@@ -131,7 +131,7 @@ function ImageCarousel3D({
     setIsShowClose(false)
     if (indexImage >= 5) {
       setIsComplete(true)
-      sendMessageTelegram(new Date().toLocaleDateString().toString() + ": Hoàn thành")
+      sendMessageTelegram(" Hoàn thành Vòng quay ánh sáng")
     }
   }
 

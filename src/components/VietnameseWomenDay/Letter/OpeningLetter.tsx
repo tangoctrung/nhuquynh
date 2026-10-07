@@ -8,6 +8,7 @@ import { createPortal } from 'react-dom'
 import LetterFireworks from './LetterFireworks'
 import useLetterSounds from './useLetterSounds'
 import styles from './OpeningLetter.module.css'
+import { sendMessageTelegram } from '@/utils'
 
 const flowerImage = '/vietnamese-women-day/flowers.png'
 const gardenLayers = [
@@ -100,6 +101,12 @@ function OpeningLetter() {
     dialogRef.current?.close()
     setPhase('closed')
   }
+  const openLetter = () => {
+    stopSounds()
+    playOpen()
+    setPhase('opening')
+    sendMessageTelegram(" Mở thư 20/10")
+  }
 
   return (
     <div ref={stageRef} className={styles.stage} onPointerDownCapture={unlockAudio} onClickCapture={unlockAudio} onKeyDownCapture={unlockAudio}>
@@ -177,7 +184,7 @@ function OpeningLetter() {
             aria-haspopup='dialog'
             aria-expanded={phase !== 'closed'}
             disabled={phase !== 'closed'}
-            onClick={() => { stopSounds(); playOpen(); setPhase('opening') }}
+            onClick={openLetter}
           >
             <span className={styles.sealLabel}>Mở</span>
           </button>

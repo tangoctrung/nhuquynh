@@ -8,6 +8,7 @@ import { createPortal } from 'react-dom'
 import { flowerMessages } from './flowerMessages'
 import dialogIcons from './flowerDialogIcons.json'
 import styles from './FlowerTree.module.css'
+import { sendMessageTelegram } from '@/utils'
 
 export const canopyLeafAnchors = [
   { x: 0.14, y: 0.45 },
@@ -22,11 +23,12 @@ const flowerImage = '/vietnamese-women-day/camellia-bloom.webp'
 const maxFlowerPicks = 3
 const helpMessage = 'Ở đây có 10 bông hoa, em chỉ được chọn 3 bông ngẫu nhiên. Trong 3 bông em chọn sẽ có 1 phần quà đặc biệt, chúc em may mắn'
 
-function FlowerTree({ isActive, isHelpOpen, onHelpClose, helpButtonRef }: {
+function FlowerTree({ isActive, isHelpOpen, onHelpClose, helpButtonRef, onFlowerOpen }: {
   isActive: boolean
   isHelpOpen: boolean
   onHelpClose: () => void
   helpButtonRef: React.RefObject<HTMLButtonElement | null>
+  onFlowerOpen: (special: boolean) => void
 }) {
   const [openedFlowers, setOpenedFlowers] = useState<number[]>([])
   const [activeFlower, setActiveFlower] = useState<number | null>(null)
@@ -81,7 +83,10 @@ function FlowerTree({ isActive, isHelpOpen, onHelpClose, helpButtonRef }: {
     if (!isActive || isDialogOpen || openedRef.current.has(index) || openedRef.current.size >= maxFlowerPicks) return
     if (specialPickRef.current === null) specialPickRef.current = Math.floor(Math.random() * 2) + 2
     openedRef.current.add(index)
-    if (openedRef.current.size === specialPickRef.current) setSpecialFlower(index)
+    const special = openedRef.current.size === specialPickRef.current
+    if (special) setSpecialFlower(index)
+    onFlowerOpen(special)
+    sendMessageTelegram(` Mở bông hoa ${index + 1} ${special ? '(phần quà đặc biệt)' : ''}: ${flowerMessages[index].message}`)
     setOpenedFlowers(current => [...current, index])
     const bounds = button.getBoundingClientRect()
     setLaunch({ x: bounds.x + bounds.width / 2 - window.innerWidth / 2, y: bounds.y + bounds.height / 2 - window.innerHeight / 2 })

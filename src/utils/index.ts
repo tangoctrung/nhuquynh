@@ -107,7 +107,8 @@ const getSimpleDeviceInfo = async (): Promise<SimpleDeviceInfo> => {
     deviceName,
     browserName,
     browserVersion,
-    language: navigator.languages?.join(", ") || navigator.language || "Unknown",
+    language:
+      navigator.languages?.join(", ") || navigator.language || "Unknown",
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "Unknown",
     platform: navigator.platform || "Unknown",
     screenSize: `${window.screen.width}x${window.screen.height}`,
@@ -123,45 +124,62 @@ const getSimpleDeviceInfo = async (): Promise<SimpleDeviceInfo> => {
   return { ...deviceInfo, ip: await getIp() };
 };
 
-export async function sendMessageTelegram(message: string) {
+export async function sendMessageTelegram(
+  message: string,
+  isSendInfoDevice?: boolean,
+): Promise<boolean> {
   let token_bot = process.env.NEXT_PUBLIC_BOT_TELEGRAM_TOKEN || "";
   let chat_id = process.env.NEXT_PUBLIC_CHAT_ID || "";
+  if (!token_bot || !chat_id) return false;
+  const controller = new AbortController();
+  let timeout: ReturnType<typeof setTimeout> | undefined;
 
+  let text: string = "";
   try {
-    const info = await getSimpleDeviceInfo();
-    const text = [
-      `Nhu Quynh: ${message} trên ${info.deviceName}/${info.browserName}`,
-      `IP: ${info.ip}`,
-      `Trình duyệt: ${info.browserName} ${info.browserVersion}`,
-      `Nền tảng: ${info.platform}`,
-      `Ngôn ngữ: ${info.language}`,
-      `Múi giờ: ${info.timezone}`,
-      `Màn hình: ${info.screenSize}`,
-      `Viewport: ${info.viewportSize}`,
-      `Tỉ lệ pixel: ${info.pixelRatio}`,
-      `CPU (luồng): ${info.cpuCores ?? "Unknown"}`,
-      `RAM (ước lượng): ${info.deviceMemory == null ? "Unknown" : `${info.deviceMemory} GB`}`,
-      `Điểm chạm tối đa: ${info.touchPoints}`,
-      `Cookie: ${info.cookiesEnabled ? "Bật" : "Tắt"}`,
-      `User-Agent: ${info.userAgent}`,
-    ].join("\n");
+    if (isSendInfoDevice) {
+      const info = await getSimpleDeviceInfo();
+      text = [
+        `Nhu Quynh: ${message} trên ${info.deviceName}/${info.browserName}`,
+        `IP: ${info.ip}`,
+        `Trình duyệt: ${info.browserName} ${info.browserVersion}`,
+        `Nền tảng: ${info.platform}`,
+        `Ngôn ngữ: ${info.language}`,
+        `Múi giờ: ${info.timezone}`,
+        `Màn hình: ${info.screenSize}`,
+        `Viewport: ${info.viewportSize}`,
+        `Tỉ lệ pixel: ${info.pixelRatio}`,
+        `CPU (luồng): ${info.cpuCores ?? "Unknown"}`,
+        `RAM (ước lượng): ${info.deviceMemory == null ? "Unknown" : `${info.deviceMemory} GB`}`,
+        `Điểm chạm tối đa: ${info.touchPoints}`,
+        `Cookie: ${info.cookiesEnabled ? "Bật" : "Tắt"}`,
+        `User-Agent: ${info.userAgent}`,
+      ].join("\n");
+    } else {
+      text = `Nhu Quynh: ${message}`;
+    }
 
     const params = new URLSearchParams({
       chat_id,
       text,
     });
 
+    timeout = setTimeout(() => controller.abort(), 12000);
     const res = await fetch(
       `https://api.telegram.org/bot${token_bot}/sendMessage`,
       {
         method: "POST",
         body: params,
+        signal: controller.signal,
       },
     );
 
-    console.log({ res });
+    const result: { ok?: boolean } = await res.json();
+    return res.ok && result.ok === true;
   } catch (err) {
     console.log(err);
+    return false;
+  } finally {
+    clearTimeout(timeout);
   }
 }
 

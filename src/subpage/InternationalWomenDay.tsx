@@ -19,7 +19,7 @@ function InternationalWomenDay() {
   }
 
   useEffect(() => {
-    sendMessageTelegram(new Date().toLocaleDateString().toString() + ": truy cập website")
+    sendMessageTelegram(" truy cập Vòng quay ánh sáng")
   }, [])
   return (
     <div className='relative w-full h-[100svh] flex justify-center items-center overflow-hidden bg-black'>

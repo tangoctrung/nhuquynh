@@ -1,0 +1,20 @@
+Generated with the built-in image_gen tool. Converted to WebP with transparent alpha preserved for tree and cloud.
+
+
+desire-flowering-tree.webp
+Use case: illustration-story
+Asset type: transparent background flowering tree cutout for animated web scenery.
+Primary request: one tall graceful flowering tree, whole tree from roots to top visible, natural rough gently curved trunk with two main branches, lush airy foliage dotted with small soft pink and white five-petal blossoms. Tree is taller than wide, canopy leans slightly toward the right. Clear individual little clusters of foliage and blossoms. Roots rest on a small tuft of grass, no terrain beyond the roots.
+Style: visibly hand-painted 2D gouache storybook illustration, soft but clearly defined brush shapes, matte paint, no photorealism, no 3D render. Fresh layered sage and emerald green leaves, muted warm grey-brown trunk, pink/white flowers. Gentle morning lighting, pleasant romantic mood. Tree cutout only, fully transparent background, no sky, no clouds, no scenery, no text, no borders. Portrait aspect ratio 2:3; entire tree visible with a little margin, no clipping of canopy or roots. The tree will be placed at the far left edge of a blue-sky flower meadow.
+
+desire-grass-meadow.webp
+Use case: illustration-story
+Asset type: wide ground-only layer for animated web scenery.
+Primary request: a fresh green grassy meadow scattered with small pink cosmos, white daisies and occasional lavender flowers. View across a gently sloping lawn: distant very tiny flowers along the top edge, slightly bigger tufts toward the bottom. It will occupy only the bottom one third of a blue-sky web scene. Paint ground across the entire image edge-to-edge. NO sky, NO horizon backdrop, NO tree, NO mountains, NO tall plants, NO large foreground flowers. Grass and flowers only. Upper border has a low softly uneven grassy silhouette, lower part solid meadow, texture understated so an overlay letter remains readable. Wide landscape aspect ratio 3:1.
+Style/medium: distinctly hand-painted flat 2D gouache children's storybook, broad simple matte brush strokes, painterly but not photorealistic and not photographic, soft fresh green lawn, small pink white lavender flower accents, daylight. Quiet romantic illustration matching a hand-painted flowering tree. No text, no frame, no UI. Opaque meadow background.
+
+desire-cloud.webp
+Use case: illustration-story
+Asset type: transparent moving cloud sprite for a hand-painted web scene.
+Primary request: one wide fluffy white cumulus cloud with three or four soft rounded lobes, slightly flattened underside, pale blue-lavender shade on the bottom, lightly creamy white illuminated top. Cloud only, floating in empty fully transparent space. Wide aspect ratio 3:1, entire cloud visible with margin, no sky or scenery or sun, no letters or frame.
+Style: simple hand-painted 2D gouache children's storybook, soft matte brush texture, broad shapes, visibly illustrated and NOT photorealistic or photographic or 3D. Keep silhouette soft but well defined; not wispy fog.

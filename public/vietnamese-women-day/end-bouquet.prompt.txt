@@ -1,0 +1,8 @@
+Use case: illustration-story
+Asset type: transparent bouquet cutout for a romantic Vietnamese Women's Day ending screen.
+Primary request: a beautiful full bouquet of blooming blush-pink roses, a few coral peonies, delicate white daisies and baby's breath, with fresh sage-green foliage, wrapped in softly folded white and pale-blue paper tied with a flowing dusty-rose satin ribbon.
+Style/medium: hand-painted storybook gouache and watercolor, visible soft brushwork, charming illustrated not photographic, dimensional petals and softly shaded folded paper.
+Composition/framing: one upright bouquet centered, entire bouquet and ribbon visible with generous transparent margin on all sides, wider blossom crown and elegant tapered wrap; flowers occupy upper two thirds.
+Lighting/mood: soft warm sunlight from upper right, delicate highlights, joyful tender mood.
+Scene/backdrop: truly transparent alpha background, no environment, no floor, no cast background shadow.
+Constraints: no text, no watermark, no hands or person, no container, no extra scattered objects, no sparkle effects baked into image.

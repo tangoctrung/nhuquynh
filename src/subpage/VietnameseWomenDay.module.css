@@ -58,6 +58,7 @@
 .scroller[data-theme='wish'],
 .screen[data-theme='wish'] {
   --entry-color: #75a4b0;
+  --exit-color: #b8cecb;
   --page-background: #8bb7d3;
   --page-gradient: none;
   --page-foreground: #fcfdfa;
@@ -70,6 +71,18 @@
   padding: 0;
   overflow: hidden;
 }
+
+.scroller[data-theme='end'],
+.screen[data-theme='end'] {
+  --entry-color: #b8cecb;
+  --page-background: #e6eef2;
+  --page-foreground: #334b43;
+  --scroll-thumb: #b990a1;
+  --scroll-hover: #986d83;
+  --scroll-track: #e4eceb;
+  color-scheme: light;
+}
+.screen[data-theme='end'] { padding: 0; overflow: hidden; }
 
 .scroller,
 .screen {

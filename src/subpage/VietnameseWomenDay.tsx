@@ -6,8 +6,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import styles from './VietnameseWomenDay.module.css'
 import Start, { type StartPage } from '@/components/VietnameseWomenDay/Start'
 import { animate, type AnimationPlaybackControls } from 'framer-motion'
+import End from '@/components/VietnameseWomenDay/End'
 
-const pageThemes = ['start', 'letter', 'flowers', 'wish'] as const
+const pageThemes = ['start', 'letter', 'flowers', 'wish', 'end'] as const
 
 function VietnameseWomenDay() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -206,6 +207,9 @@ function VietnameseWomenDay() {
       </section>
       <section id='vwd-wish' tabIndex={-1} aria-label='Viết điều ước' data-theme='wish' className={`${styles.screen} flex h-screen supports-[height:100dvh]:h-[100dvh] w-full shrink-0 snap-start snap-always items-center justify-center overflow-y-auto px-4 pt-16 pb-6`}>
         <WriteDesire />
+      </section>
+      <section id='vwd-end' tabIndex={-1} aria-label='Kết thúc' data-theme='end' className={`${styles.screen} flex h-screen supports-[height:100dvh]:h-[100dvh] w-full shrink-0 snap-start snap-always items-center justify-center overflow-y-auto px-4 pt-16 pb-6`}>
+        <End />
       </section>
     </div>
   )

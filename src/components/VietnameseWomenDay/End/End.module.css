@@ -1,0 +1,287 @@
+.scene {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #e6eef2;
+  color: #334b43;
+}
+.landscape,
+.landscape img,
+.petals {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.landscape {
+  z-index: -1;
+  opacity: 0.48;
+}
+.landscape img {
+  object-fit: cover;
+  object-position: center;
+}
+.content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: max(72px, env(safe-area-inset-top, 0px)) 24px
+    max(32px, env(safe-area-inset-bottom, 0px));
+}
+.bouquet {
+  position: relative;
+  flex: 0 1 auto;
+  min-height: 0;
+  height: min(59dvh, 580px);
+  aspect-ratio: 1200 / 1312;
+  max-width: 90%;
+  transform-origin: 50% 87%;
+  animation: sway 7s ease-in-out infinite;
+}
+.bouquetImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 15px #3e596023);
+  user-select: none;
+}
+.sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.sparkle {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fffde4;
+  clip-path: polygon(
+    50% 0,
+    60% 39%,
+    100% 50%,
+    60% 61%,
+    50% 100%,
+    40% 61%,
+    0 50%,
+    40% 39%
+  );
+  animation: twinkle var(--duration) ease-in-out var(--delay) infinite;
+}
+.message {
+  position: relative;
+  flex: 0 0 auto;
+  text-align: center;
+}
+.message h2 {
+  font-family: "OpeningLetterScript", cursive;
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1.24;
+  margin: 0;
+  text-shadow: 0 2px 12px #ffffffc9;
+}
+.message b {
+  font-family: "OpeningLetterScript", cursive;
+  margin: 12px 0 0;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #8a4b68;
+}
+.message p {
+  font-family: "OpeningLetterScript", cursive;
+  margin: 12px 0 0;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #435e52;
+}
+.ending {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  color: #8a4b68;
+  font-family: "OpeningLetterScript", cursive;
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-shadow: 0 2px 8px #ffffffc9;
+}
+.ending::before,
+.ending::after {
+  content: "";
+  width: 56px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #a66d89);
+}
+.ending::after {
+  transform: rotate(180deg);
+}
+.petals {
+  z-index: 2;
+}
+.petal {
+  position: absolute;
+  top: -30px;
+  left: var(--left);
+  width: var(--size);
+  height: calc(var(--size) * 1.35);
+  border-radius: 75% 15% 70% 30%;
+  background: linear-gradient(135deg, #ffdbdf, #d9879c);
+  box-shadow: inset 1px 1px 2px #fff5;
+  animation: fall var(--duration) linear var(--delay) infinite;
+}
+.petal:nth-child(3n) {
+  opacity: 0.5;
+  background: linear-gradient(135deg, #fff9f2, #e8c3c9);
+}
+.petal:nth-child(4n) {
+  opacity: 0.65;
+}
+.soundButton {
+  position: absolute;
+  z-index: 3;
+  top: max(18px, env(safe-area-inset-top, 0px));
+  right: max(18px, env(safe-area-inset-right, 0px));
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #ffffffbf;
+  border-radius: 50%;
+  background: #f8fcf5d9;
+  color: #4d6659;
+  box-shadow: 0 3px 14px #3d5d4914;
+  transition:
+    background 180ms,
+    transform 180ms;
+}
+.soundButton:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+.soundButton:focus-visible {
+  outline: 2px solid #4d6659;
+  outline-offset: 4px;
+}
+.soundButton:disabled {
+  cursor: default;
+}
+.scene[data-active="false"] .bouquet,
+.scene[data-active="false"] .sparkle,
+.scene[data-active="false"] .petal {
+  animation-play-state: paused;
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-2deg) translateY(0);
+  }
+  50% {
+    transform: rotate(2deg) translateY(-7px);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.12;
+    transform: scale(0.45) rotate(0);
+  }
+  45% {
+    opacity: 1;
+    transform: scale(1.15) rotate(12deg);
+  }
+  70% {
+    opacity: 0.28;
+    transform: scale(0.65) rotate(25deg);
+  }
+}
+@keyframes fall {
+  0% {
+    transform: translate3d(0, -20px, 0) rotate(0);
+  }
+  35% {
+    transform: translate3d(calc(var(--drift) * -0.3), 38dvh, 0) rotate(130deg);
+  }
+  70% {
+    transform: translate3d(var(--drift), 75dvh, 0) rotate(250deg);
+  }
+  100% {
+    transform: translate3d(calc(var(--drift) * 0.35), calc(100dvh + 70px), 0)
+      rotate(380deg);
+  }
+}
+@media (max-width: 600px) {
+  .content {
+    padding-right: 18px;
+    padding-left: 18px;
+    gap: 20px;
+  }
+  .bouquet {
+    height: min(52dvh, 460px);
+    max-width: 100%;
+  }
+  .message h2 {
+    font-size: 38px;
+    max-width: 320px;
+  }
+  .message p {
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  .ending {
+    margin-top: 16px;
+    font-size: 36px;
+    gap: 12px;
+  }
+  .ending::before,
+  .ending::after {
+    width: 40px;
+  }
+  .petal:nth-child(n + 13) {
+    display: none;
+  }
+  .soundButton {
+    width: 44px;
+    height: 44px;
+    top: max(14px, env(safe-area-inset-top, 0px));
+    right: 14px;
+  }
+}
+@media (max-height: 500px) and (min-width: 601px) {
+  .content {
+    flex-direction: row;
+    gap: 30px;
+    padding-top: 54px;
+    padding-bottom: 20px;
+  }
+  .bouquet {
+    height: 75dvh;
+  }
+  .message h2 {
+    font-size: 38px;
+    max-width: 310px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bouquet,
+  .sparkle,
+  .petal {
+    animation: none;
+  }
+  .petals {
+    display: none;
+  }
+  .sparkle {
+    opacity: 0.65;
+  }
+  .soundButton {
+    transition: none;
+  }
+}

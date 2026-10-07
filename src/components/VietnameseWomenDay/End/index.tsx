@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState, type CSSProperties } from 'react'
 import icons from '../Desire/desireIcons.json'
 import styles from './End.module.css'
 import useEndMusic from './useEndMusic'
+import { sendMessageTelegram } from '@/utils'
 
 const sparkles = [[20, 23], [36, 15], [62, 18], [79, 28], [27, 39], [49, 31], [67, 42], [41, 48], [75, 54], [17, 51], [55, 61], [34, 66]]
 
@@ -14,6 +15,7 @@ function End() {
   const { soundEnabled, toggleSound } = useEndMusic(isActive)
 
   useEffect(() => {
+    sendMessageTelegram(" Kết thúc 20/10")
     let visible = false
     const syncVisibility = () => setIsActive(visible && !document.hidden)
     const observer = new IntersectionObserver(([entry]) => {

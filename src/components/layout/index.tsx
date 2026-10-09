@@ -14,7 +14,7 @@ function LayoutMain({
 
   useEffect(() => {
     // 2025/01/31 17:23
-    const firstTime = new Date("2026/10/02 11:30").getTime()
+    const firstTime = new Date("2026/10/02 11:55").getTime()
     const timeNow = new Date().getTime()
     const time = Math.floor((timeNow - firstTime) / 1000 / 24 / 3600)
 

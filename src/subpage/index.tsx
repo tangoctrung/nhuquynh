@@ -2,7 +2,8 @@
 import { DAYS } from '@/types'
 import { returnTypeDays } from '@/utils'
 import React, { useEffect, useState } from 'react'
-import InternationalWomenDay from './InternationalWomenDay'
+import NormalDay from './NormalDay'
+import VietnameseWomenDay from './VietnameseWomenDay'
 
 function Subpage() {
   const [typeDay, setTypeDay] = useState<DAYS>("")
@@ -14,7 +15,7 @@ function Subpage() {
     const type = process.env.NEXT_PUBLIC_TYPE_DAY as DAYS || returnTypeDays(day, month)
     const timeOut = setTimeout(() => {
       setTypeDay(type)
-    }, 3000)
+    }, 1000)
     console.log({ typeDay });
     return () => {
       clearTimeout(timeOut)
@@ -23,13 +24,11 @@ function Subpage() {
 
   return (
     <div>
-      <InternationalWomenDay />
-      {/* {typeDay === "1/1" && <LunarNewYearDay />}
-      {(typeDay === "14/2") && <ValentineDay />}
-      {typeDay === "8/3" && <InternationalWomenDay />}
+      {/* {typeDay === "1/1" && <LunarNewYearDay />} */}
+      {/* {(typeDay === "14/2") && <ValentineDay />} */}
+      {/* {typeDay === "8/3" && <InternationalWomenDay />} */}
       {typeDay === "20/10" && <VietnameseWomenDay />}
-      {typeDay === "25/10" && <Birthday />}
-      {typeDay === "" && <NormalDay />} */}
+      {typeDay === "" && <NormalDay />}
     </div>
   )
 }

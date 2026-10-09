@@ -15,7 +15,6 @@ function End() {
   const { soundEnabled, toggleSound } = useEndMusic(isActive)
 
   useEffect(() => {
-    sendMessageTelegram(" Kết thúc 20/10")
     let visible = false
     const syncVisibility = () => setIsActive(visible && !document.hidden)
     const observer = new IntersectionObserver(([entry]) => {
@@ -29,6 +28,12 @@ function End() {
       document.removeEventListener('visibilitychange', syncVisibility)
     }
   }, [])
+
+  useEffect(() => {
+    if (isActive) {
+      sendMessageTelegram(" Kết thúc 20/10")
+    }
+  }, [isActive])
 
   return (
     <div ref={sceneRef} className={styles.scene} data-active={isActive}>

@@ -39,7 +39,9 @@ function NormalDay() {
       <div className='relative max-w-[96%] sm:max-w-[500px] w-fit p-5 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-950 border border-slate-700 mt-[30svh]'>
         <p className='w-full text-center font-mono text-xl sm:text-3xl font-bold'>{time}</p>
         <p className='mt-2 font-mono text-lg font-bold'>{formatTimeNormalDay()}</p>
-        {password !== PASSWORD &&
+        <p className='mt-4 text-gray-300 font-mono text-sm font-bold'>Nếu em có vào lại đây thì anh muốn nói đã làm cho em một thứ khác để tặng em vào ngày 20/10.</p>
+        <p className='text-gray-300 font-mono text-sm font-bold'>Hãy quay lại vào ngày đó nhé!!!</p>
+        {/* {password !== PASSWORD &&
           <input
             placeholder='Nhập mã 8 chữ số'
             className='mt-2 rounded-sm outline-none bg-transparent text-center border-b border-gray-500 focus:border-green-500 transition-all duration-300 p-1 w-full text-sm'
@@ -55,7 +57,7 @@ function NormalDay() {
                 <p className='font-semibold'>{item?.date}</p>
               </div>
             ))}
-          </div>}
+          </div>} */}
       </div>
     </div>
   )

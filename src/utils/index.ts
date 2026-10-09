@@ -199,9 +199,6 @@ export function returnTypeDays(day: number, month: number): DAYS {
   if (day === 20 && month === 10) {
     return "20/10";
   }
-  if (day === 25 && month === 10) {
-    return "25/10";
-  }
   return "";
 }
 

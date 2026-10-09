@@ -6,7 +6,7 @@ import Image from 'next/image'
 import React, { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import LetterFireworks from './LetterFireworks'
-import useLetterSounds from './useLetterSounds'
+import useLetterSounds from '../Flower/useLetterSounds'
 import styles from './OpeningLetter.module.css'
 import { sendMessageTelegram } from '@/utils'
 
@@ -222,6 +222,10 @@ function OpeningLetter() {
             >
               <span>Chúc mừng</span>{' '}
               <strong>20/10</strong>
+              <p className='text-xl text-black'>Chúc em luôn vui vẻ, hạnh phúc, bình an.</p>
+              <p className='text-xl text-black'>Chúc em sớm vượt qua nỗi nhớ nhung, vượt qua những cảm xúc đang cố đè nén trong lòng.</p>
+              <p className='text-xl text-black'>Em sẽ sớm vượt qua thôi vì sau cơn mưa thứ xuất hiện luôn là cầu vồng.</p>
+
             </motion.h2>
             <motion.div className={styles.paperFlowers} aria-hidden='true' initial={{ opacity: 0 }} animate={{ opacity: phase === 'open' ? 1 : 0 }} transition={{ duration: reduceMotion ? 0 : 0.4 }}>
               <Image src={flowerImage} alt='' width={1334} height={1179} sizes='160px' className={styles.flowerLeft} />

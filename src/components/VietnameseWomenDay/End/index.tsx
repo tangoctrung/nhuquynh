@@ -32,10 +32,10 @@ function End() {
 
   return (
     <div ref={sceneRef} className={styles.scene} data-active={isActive}>
-      <picture className={styles.landscape} aria-hidden='true'>
+      {/* <picture className={styles.landscape} aria-hidden='true'>
         <source media='(max-width: 600px)' srcSet='/vietnamese-women-day/desire-sunlit-meadow-portrait.webp' />
         <img src='/vietnamese-women-day/desire-sunlit-meadow-wide.webp' alt='' draggable={false} />
-      </picture>
+      </picture> */}
       <div className={styles.petals} aria-hidden='true'>
         {Array.from({ length: 18 }, (_, index) => (
           <span key={index} className={styles.petal} style={{
@@ -65,9 +65,10 @@ function End() {
           </div>
         </div>
         <div className={styles.message}>
-          <h2>Chúc em luôn hạnh phúc</h2>
-          <b>Hôm nay, và cả những ngày sau này.</b>
-          <p>Anh sẽ thực hiện nguyện vọng của em sớm nhất có thể.</p>
+          <h2>20/10 thật vui vẻ</h2>
+          <p>Chiều hoàng hôn cho ta cảm giác thân thương gắn bó</p>
+          <p>Khi màn đêm buông xuống làm tâm trí ta trống rỗng</p>
+          <p>Nhưng rồi bình minh xuất hiện sẽ lại kéo ta về an yên.</p>
           <div className={styles.ending}><span>Hết</span></div>
         </div>
       </div>

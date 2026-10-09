@@ -1,6 +1,6 @@
 "use client"
 import OpeningLetter from '@/components/VietnameseWomenDay/Letter/OpeningLetter'
-import PickingFlowers from '@/components/VietnameseWomenDay/Letter/PickingFlowers'
+import PickingFlowers from '@/components/VietnameseWomenDay/Flower/PickingFlowers'
 import WriteDesire from '@/components/VietnameseWomenDay/Desire/WriteDesire'
 import React, { useEffect, useRef, useState } from 'react'
 import styles from './VietnameseWomenDay.module.css'

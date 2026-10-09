@@ -27,10 +27,9 @@
 .content {
   height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 18px;
+  gap: 48px;
   padding: max(72px, env(safe-area-inset-top, 0px)) 24px
     max(32px, env(safe-area-inset-bottom, 0px));
 }
@@ -219,6 +218,7 @@
 }
 @media (max-width: 600px) {
   .content {
+    flex-direction: column;
     padding-right: 18px;
     padding-left: 18px;
     gap: 20px;
